@@ -16,6 +16,8 @@ const IN_PROD = NODE_ENV === "production";
 //set up app
 const app = express();
 
+app.use(express.static(__dirname + "/public"));
+
 app.use(
 	session({
 		name: SESS_NAME,

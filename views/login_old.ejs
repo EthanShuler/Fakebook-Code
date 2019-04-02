@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>FakeBook || login/register</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<meta charset="utf-8" />
+		<style>
+			body {
+				font-family: "Varela Round", sans-serif;
+			}
+			.modal-login {
+				color: #636363;
+				width: 350px;
+			}
+			.modal-login .modal-content {
+				padding: 20px;
+				border-radius: 5px;
+				border: none;
+			}
+			.modal-login .modal-header {
+				border-bottom: none;
+				position: relative;
+				justify-content: center;
+			}
+			.modal-login h4 {
+				text-align: center;
+				font-size: 26px;
+				margin: 30px 0 -15px;
+			}
+			.modal-login .form-control:focus {
+				border-color: #70c5c0;
+			}
+			.modal-login .form-control,
+			.modal-login .btn {
+				min-height: 40px;
+				border-radius: 3px;
+			}
+			.modal-login .close {
+				position: absolute;
+				top: -5px;
+				right: -5px;
+			}
+			.modal-login .modal-footer {
+				background: #ecf0f1;
+				border-color: #dee4e7;
+				text-align: center;
+				justify-content: center;
+				margin: 0 -20px -20px;
+				border-radius: 5px;
+				font-size: 13px;
+			}
+			.modal-login .modal-footer a {
+				color: #999;
+			}
+			.modal-login .avatar {
+				position: absolute;
+				margin: 0 auto;
+				left: 0;
+				right: 0;
+				top: -70px;
+				width: 95px;
+				height: 95px;
+				border-radius: 50%;
+				z-index: 9;
+				background: #60c7c1;
+				padding: 15px;
+				box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+			}
+			.modal-login .avatar img {
+				width: 100%;
+			}
+			.modal-login.modal-dialog {
+				margin-top: 80px;
+			}
+			.modal-login .btn {
+				color: #fff;
+				border-radius: 4px;
+				text-decoration: none;
+				transition: all 0.4s;
+				line-height: normal;
+				border: none;
+			}
+			.modal-login .btn:hover,
+			.modal-login .btn:focus {
+				background: #45aba6;
+				outline: none;
+			}
+			.trigger-btn {
+				display: inline-block;
+				margin: 100px auto;
+			}
+
+			/* Style all input fields */
+			input {
+				width: 100%;
+				padding: 12px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+				margin-top: 6px;
+				margin-bottom: 16px;
+			}
+
+			/* Style the submit button */
+			input[type="submit"] {
+				background-color: #4caf50;
+				color: white;
+			}
+
+			/* Style the container for inputs */
+			.container {
+				background-color: #f1f1f1;
+				padding: 20px;
+			}
+
+			/* The message box is shown when the user clicks on the password field */
+			#message {
+				display: none;
+				background: #f1f1f1;
+				color: #000;
+				position: relative;
+				padding: 20px;
+				margin-top: 10px;
+			}
+
+			#message p {
+				padding: 10px 35px;
+				font-size: 18px;
+			}
+
+			/* Add a green text color and a checkmark when the requirements are right */
+			.valid {
+				color: green;
+			}
+
+			.valid:before {
+				position: relative;
+				left: -35px;
+				content: "✔";
+			}
+
+			/* Add a red text color and an "x" when the requirements are wrong */
+			.invalid {
+				color: red;
+			}
+
+			.invalid:before {
+				position: relative;
+				left: -35px;
+				content: "✖";
+			}
+		</style>
+
+		<script>
+			function openModal() {
+				var myInput = document.getElementById("psw");
+				var confirmMyInput = document.getElementById("cpsw");
+				var letter = document.getElementById("letter");
+				var capital = document.getElementById("capital");
+				var number = document.getElementById("number");
+				var length = document.getElementById("length");
+				var match = document.getElementById("match");
+
+				// When the user starts to type something inside the password field
+				myInput.onkeyup = function() {
+					/* TODO: Question 1.1: Starts here */
+					var lowerCaseLetters = /[a-z]/g; // : Fill in the regular experssion for lowerCaseLetters
+					var upperCaseLetters = /[A-Z]/g; // : Fill in the regular experssion for upperCaseLetters
+					var numbers = /\d/g; // : Fill in the regular experssion for digits
+					var minLength = 8; // : Change the minimum length to what what it needs to be in the question
+
+					// Validate lowercase letters
+
+					console.log(letter.classList);
+
+					if (myInput.value.match(lowerCaseLetters)) {
+						letter.classList.remove("invalid");
+						letter.classList.add("valid");
+					} else {
+						letter.classList.remove("valid");
+						letter.classList.add("invalid");
+					}
+
+					// Validate capital letters
+					if (myInput.value.match(upperCaseLetters)) {
+						capital.classList.remove("invalid");
+						capital.classList.add("valid");
+					} else {
+						capital.classList.remove("valid");
+						capital.classList.add("invalid");
+					}
+
+					// Validate numbers
+					if (myInput.value.match(numbers)) {
+						number.classList.remove("invalid");
+						number.classList.add("valid");
+					} else {
+						number.classList.remove("valid");
+						number.classList.add("invalid");
+					}
+
+					// Validate length
+					if (myInput.value.length >= minLength) {
+						length.classList.remove("invalid");
+						length.classList.add("valid");
+					} else {
+						length.classList.remove("valid");
+						length.classList.add("invalid");
+					}
+				};
+				confirmMyInput.onkeyup = function() {
+					// Validate password and confirmPassword
+					var passEqualsConfPass = myInput.value == confirmMyInput.value; // TODO: Change this to the condition that needs to be checked so that the text entered in password equals the text in confirm password
+
+					if (passEqualsConfPass) {
+						match.classList.remove("invalid");
+						match.classList.add("valid");
+					} else {
+						match.classList.remove("valid");
+						match.classList.add("invalid");
+					}
+					enableButton(letter, capital, number, length, match);
+				};
+			}
+
+			function enableButton(letter, capital, number, length, match) {
+				var button = document.getElementById("my_submit_button");
+				var condition =
+					letter.classList == "valid" &&
+					capital.classList == "valid" &&
+					number.classList == "valid" &&
+					length.classList == "valid" &&
+					match.classList == "valid";
+				if (condition) {
+					button.disabled = false;
+				} else {
+					button.disabled = true;
+				}
+			}
+		</script>
+	</head>
+	<body style="background-color:#87CEFA">
+		<div class="container" style="background-color: #87CEFA">
+			<form method="post" action="/users/login" ID="LoginForm" name="formlogin">
+				<div class="form-group">
+					<label for="login_username">Username:</label>
+					<input
+						id="login_username"
+						placeholder="Enter username"
+						type="username"
+						class="form-control"
+						name="login_user"
+					/>
+					<label for="login_password">Password:</label>
+					<input
+						id="login_password"
+						name="login_pass"
+						type="password"
+						class="form-control"
+						placeholder="Enter password"
+					/>
+				</div>
+				<button type="submit" class="btn btn-default">Log In</button>
+			</form>
+			<p>Or, if you don't have an account yet:</p>
+			<div class="text-center">
+				<a
+					href="#register"
+					class="btn btn-info"
+					data-toggle="modal"
+					onclick="openModal()"
+					>Register an Account</a
+				>
+			</div>
+		</div>
+
+		<!-- Modal HTML -->
+		<div id="register" class="modal fade">
+			<div class="modal-dialog modal-login">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="avatar">
+							<img
+								src="https://www.tutorialrepublic.com/examples/images/avatar.png"
+								alt="Avatar"
+							/>
+						</div>
+						<h4 class="modal-title">Register an Account</h4>
+
+						<button
+							type="button"
+							class="close"
+							data-dismiss="modal"
+							aria-hidden="true"
+						>
+							&times;
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="/users/register" method="post">
+							<div class="form-group">
+								<input
+									type="text"
+									class="form-control"
+									name="username"
+									placeholder="Username"
+									required="required"
+								/>
+							</div>
+							<div class="form-group">
+								<input
+									type="email"
+									class="form-control"
+									name="email"
+									placeholder="email"
+									required="required"
+								/>
+							</div>
+							<label for="birthday">Birth Date:</label>
+							<div class="form-group">
+								<input
+									type="date"
+									id="birthday"
+									name="birthday"
+									value="2019-04-01"
+									class="form-control"
+								/>
+							</div>
+							<div class="form-group">
+								<input
+									id="psw"
+									type="password"
+									class="form-control"
+									name="password"
+									placeholder="Password"
+									required="required"
+								/>
+							</div>
+							<div class="form-group">
+								<input
+									id="cpsw"
+									type="password"
+									class="form-control"
+									name="confirm password"
+									placeholder="Confirm Password"
+									required="required"
+								/>
+							</div>
+							<div class="form-group">
+								<button
+									id="my_submit_button"
+									class="btn btn-primary btn-block login-btn"
+									disabled
+									onClick=""
+								>
+									Register
+								</button>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<div id="message" style="display:block">
+							<h3>Password must contain the following:</h3>
+							<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+							<p id="capital" class="invalid">
+								A <b>capital (uppercase)</b> letter
+							</p>
+							<p id="number" class="invalid">A <b>number</b></p>
+							<p id="length" class="invalid">Minimum <b>8 characters</b></p>
+							<p id="match" class="invalid">
+								Password and Confirm Password Match
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
