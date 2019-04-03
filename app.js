@@ -1,5 +1,7 @@
 const express = require("express");
 const session = require("express-session");
+const bodyParser = require("body-parser"); //Ensure our body-parser tool has been added
+const pgp = require("pg-promise")();
 
 const THREE_HOURS = 1000 * 60 * 60 * 3;
 
@@ -16,6 +18,10 @@ const IN_PROD = NODE_ENV === "production";
 //set up app
 const app = express();
 
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+//set static path for css, img, js files
 app.use(express.static(__dirname + "/public"));
 
 app.use(
@@ -32,8 +38,6 @@ app.use(
 	})
 );
 
-const pgp = require("pg-promise")();
-
 //database config
 const dbConfig = {
 	host: "localhost",
@@ -44,12 +48,10 @@ const dbConfig = {
 };
 
 //connect to postgres
-var db = pgp(dbConfig);
+const db = pgp(dbConfig);
 
 // set the view engine to ejs
 app.set("view engine", "ejs");
-
-app.use(express.static("public"));
 
 //body parser
 app.use(express.urlencoded({ extended: false }));
