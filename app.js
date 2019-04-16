@@ -1,7 +1,8 @@
 const express = require("express");
 const session = require("express-session");
-const bodyParser = require("body-parser"); //Ensure our body-parser tool has been added
-const pgp = require("pg-promise")();
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const passport = require("passport");
 
 const THREE_HOURS = 1000 * 60 * 60 * 3;
 
@@ -21,6 +22,7 @@ const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+app.use(cookieParser());
 //set static path for css, img, js files
 app.use(express.static(__dirname + "/public"));
 
@@ -37,18 +39,8 @@ app.use(
 		}
 	})
 );
-
-//database config
-const dbConfig = {
-	host: "localhost",
-	port: 5432,
-	database: "football_db",
-	user: "postgres",
-	password: "postgres123"
-};
-
-//connect to postgres
-const db = pgp(dbConfig);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // set the view engine to ejs
 app.set("view engine", "ejs");
