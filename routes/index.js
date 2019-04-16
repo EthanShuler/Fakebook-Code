@@ -5,6 +5,17 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
+// router.post("/post", (req, res) => {
+// 	var postQuery = ("SELECT * from posts;");
+// 	db.any(postQuery)
+// 		.then(function(rows) {
+// 			res.render("fakebook.ejs")
+// 		})
+// 		.catch(function(err) {
+// 			req.flash("error", err);
+// 		})
+// });
+
 //Login Page
 router.get("/", (req, res) => res.render("login"));
 
