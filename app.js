@@ -3,6 +3,7 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
+const uuid = require("uuid/v4");
 
 const THREE_HOURS = 1000 * 60 * 60 * 3;
 
@@ -28,15 +29,20 @@ app.use(express.static(__dirname + "/public"));
 
 app.use(
 	session({
-		name: SESS_NAME,
+		genid: req => {
+			//console.log("Inside the session middleware");
+			//console.log(req.sessionID);
+			return uuid(); // use UUIDs for session IDs
+		},
+		//name: SESS_NAME,
 		resave: false,
 		saveUninitialized: false,
-		secret: SESS_SECRET,
-		cookie: {
-			maxAge: SESS_LIFETIME, //two hours
-			sameSite: true,
-			secure: IN_PROD
-		}
+		secret: SESS_SECRET
+		// cookie: {
+		// 	maxAge: SESS_LIFETIME, //two hours
+		// 	sameSite: true,
+		// 	secure: IN_PROD
+		// }
 	})
 );
 app.use(passport.initialize());
@@ -51,5 +57,4 @@ app.use(express.urlencoded({ extended: false }));
 //Routes
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
-
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));

@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
 //Login Page
-router.get("/login", (req, res) => res.render("login"));
+router.get("/", (req, res) => res.render("login"));
 
 //handle registration
 router.post("/register", (req, res) => {
@@ -15,17 +15,30 @@ router.post("/register", (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
-	const db = require("../db");
+	const db = process.env.DATABASE_URL; //require("../db");
 
 	bcrypt.hash(password, saltrounds, function(err, hash) {
 		//store hash in password DB
-		db.none("INSERT INTO users(username, email, password) VALUES($1, $2, $3)", [
+		db.none("INSERT INTO users1(name, email, password) VALUES($1, $2, $3)", [
 			username,
 			email,
 			hash
 		])
 			.then(() => {
-				res.render("fakebook.ejs");
+				//res.send("succ");
+				var query = "SELECT currval(pg_get_serial_sequence('users1','id'));";
+				db.any(query)
+					.then(function(rows) {
+						//res.send(rows[0]);
+						console.log(rows[0].currval);
+						//console.log(rows);
+						//req.login(rows[0].currval);
+						res.render("fakebook.ejs");
+					})
+					.catch(function(err) {
+						// display error message in case an error
+						req.flash("error", err);
+					});
 			})
 			.catch(error => {
 				res.render("login");
