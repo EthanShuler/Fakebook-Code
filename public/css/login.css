@@ -82,7 +82,23 @@ body {
 	display: inline-block;
 	margin: 100px auto;
 }
+.center{
+	margin: auto;
+	width: 25%;
+}
 
+/* Header bar */
+.navbar{
+	border-radius: 0px;
+	margin-bottom: auto;
+}
+.navbar-brand{
+	padding: 5px 15px;
+}
+header{
+	padding-top: 5px;
+	font-size: 30px;
+}
 /* Style all input fields */
 input {
 	width: 100%;
@@ -102,8 +118,9 @@ input[type="submit"] {
 
 /* Style the container for inputs */
 .container {
-	background-color: #f1f1f1;
+	justify-content: center;
 	padding: 20px;
+	width:50%;
 }
 
 /* The message box is shown when the user clicks on the password field */
