@@ -6,6 +6,10 @@ var pgp = require("pg-promise")();
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
+const dbConfig = process.env.DATABASE_URL;
+const db = pgp(dbConfig);
+//const db = require("../db");
+
 // router.post("/post", (req, res) => {
 // 	var postQuery = ("SELECT * from posts;");
 // 	db.any(postQuery)
@@ -23,7 +27,28 @@ router.get("/login", (req, res, next) => res.render("login"));
 router.get("/", authenticationMiddleware(), function(req, res) {
 	//console.log(req.user);
 	//console.log(req.isAuthenticated());
-	res.render("fakebook");
+	db.any("SELECT poster, text FROM posts")
+		.then(function(rows) {
+			res.render("fakebook", {
+				data: rows
+			});
+		})
+
+		.catch(function(err) {
+			res.render("/login");
+		});
+	//res.render("fakebook");
+});
+
+router.post("/submitPost", (req, res, next) => {
+	const message = req.body.message;
+	db.none("INSERT INTO posts(poster, text) VALUES($1, $2)", ["temp", message])
+		.then(() => {
+			res.redirect("/");
+		})
+		.catch(function(err) {
+			res.redirect("/");
+		});
 });
 
 router.post(
@@ -40,10 +65,6 @@ router.post("/register", (req, res, next) => {
 	const username = req.body.username;
 	const email = req.body.email;
 	const password = req.body.password;
-
-	const dbConfig = process.env.DATABASE_URL;
-	const db = pgp(dbConfig);
-	//const db = require("../db");
 
 	bcrypt.hash(password, saltrounds, function(err, hash) {
 		//store hash in password DB
