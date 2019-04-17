@@ -32,7 +32,7 @@ router.post("/register", (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
-	const dbConfig = process.env.DATABASE_URL; //require("../db");
+	const dbConfig = process.env.DATABASE_URL;
 	const db = pgp(dbConfig);
 	//const db = require("../db");
 
@@ -78,5 +78,14 @@ passport.serializeUser(function(user_id, done) {
 passport.deserializeUser(function(user_id, done) {
 	done(null, user_id);
 });
+
+function authenticationMiddleware() {
+	return (req, res, next) => {
+		console.log(`
+		req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+		if (req.isAuthenticated()) return next();
+		res.redirect("/login");
+	};
+}
 
 module.exports = router;
