@@ -32,9 +32,9 @@ router.post("/register", (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
-	//const dbConfig = process.env.DATABASE_URL;
-	//const db = pgp(dbConfig);
-	const db = require("../db");
+	const dbConfig = process.env.DATABASE_URL;
+	const db = pgp(dbConfig);
+	//const db = require("../db");
 
 	bcrypt.hash(password, saltrounds, function(err, hash) {
 		//store hash in password DB
