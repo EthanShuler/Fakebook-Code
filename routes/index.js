@@ -19,9 +19,9 @@ const saltrounds = 10;
 
 //Login Page
 router.get("/login", (req, res) => res.render("login"));
-router.get("/", (req, res) => {
-	console.log(req.user);
-	console.log(req.isAuthenticated());
+router.get("/", authenticationMiddleware(), function(req, res) {
+	//console.log(req.user);
+	//console.log(req.isAuthenticated());
 	res.render("fakebook");
 });
 
@@ -84,7 +84,7 @@ function authenticationMiddleware() {
 		console.log(`
 		req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
 		if (req.isAuthenticated()) return next();
-		res.redirect("/login");
+		res.redirect("login");
 	};
 }
 
