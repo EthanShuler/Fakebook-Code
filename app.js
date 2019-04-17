@@ -3,7 +3,10 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
+const LocalStrategy = require("passport-local");
 const uuid = require("uuid/v4");
+var pgp = require("pg-promise")();
+var bcrypt = require("bcrypt");
 
 const THREE_HOURS = 1000 * 60 * 60 * 3;
 
@@ -75,4 +78,44 @@ app.use(express.urlencoded({ extended: false }));
 //Routes
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
+
+passport.use(
+	new LocalStrategy(
+		{
+			usernameField: "login_user",
+			passwordField: "login_pass"
+		},
+		function(username, password, done) {
+			//console.log(username);
+			//console.log(password);
+
+			const dbConfig = process.env.DATABASE_URL;
+			const db = pgp(dbConfig);
+			//const db = require("./db");
+			db.any("SELECT id, password from users where name = $1", [username])
+				.then(function(data) {
+					if (data.length == 0) {
+						return done(null, false);
+					} else {
+						//console.log(data[0]);
+						const hash = data[0].password;
+						bcrypt.compare(password, hash, function(err, response) {
+							if (response === true) {
+								return done(null, { user_id: data[0].id });
+							} else {
+								return done(null, false);
+							}
+						});
+					}
+				})
+
+				.catch(function(err) {
+					return done(err);
+				});
+
+			//return done(null, false);
+		}
+	)
+);
+
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));

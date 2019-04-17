@@ -18,15 +18,24 @@ const saltrounds = 10;
 // });
 
 //Login Page
-router.get("/login", (req, res) => res.render("login"));
+router.get("/login", (req, res, next) => res.render("login"));
+
 router.get("/", authenticationMiddleware(), function(req, res) {
 	//console.log(req.user);
 	//console.log(req.isAuthenticated());
 	res.render("fakebook");
 });
 
+router.post(
+	"/login",
+	passport.authenticate("local", {
+		successRedirect: "/",
+		failureRedirect: "/login"
+	})
+);
+
 //handle registration
-router.post("/register", (req, res) => {
+router.post("/register", (req, res, next) => {
 	//res.send(req.body.username);
 	const username = req.body.username;
 	const email = req.body.email;
@@ -49,20 +58,14 @@ router.post("/register", (req, res) => {
 					"SELECT currval(pg_get_serial_sequence('users','id')) as user_id;";
 				db.any(query)
 					.then(function(rows) {
-						//res.send(rows[0]);
-						//console.log(rows[0].currval);
-						//console.log(rows[0]);
 						const user_id = rows[0];
-						//const user_id = rows[0].currval;
-						//console.log(rows);
 						req.login(user_id, function(err) {
 							res.redirect("/");
 						});
-						//res.render("fakebook.ejs");
 					})
 					.catch(function(err) {
 						// display error message in case an error
-						res.send("failure");
+						res.render("login");
 					});
 			})
 			.catch(error => {
@@ -72,11 +75,12 @@ router.post("/register", (req, res) => {
 });
 
 passport.serializeUser(function(user_id, done) {
-	console.log("ok");
 	done(null, user_id);
 });
 
 passport.deserializeUser(function(user_id, done) {
+	//console.log("in DEserializeUser. user_id:");
+	//console.log(user_id);
 	done(null, user_id);
 });
 
@@ -87,7 +91,9 @@ function authenticationMiddleware() {
 		req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
 		if (req.isAuthenticated()) return next();
 		//console.log("not nogged in");
-		res.redirect("login");
+		else {
+			res.redirect("login");
+		}
 	};
 }
 
