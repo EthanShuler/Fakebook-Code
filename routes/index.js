@@ -18,7 +18,12 @@ const saltrounds = 10;
 // });
 
 //Login Page
-router.get("/", (req, res) => res.render("login"));
+router.get("/login", (req, res) => res.render("login"));
+router.get("/", (req, res) => {
+	console.log(req.user);
+	console.log(req.isAuthenticated());
+	res.render("fakebook");
+});
 
 //handle registration
 router.post("/register", (req, res) => {
@@ -33,25 +38,31 @@ router.post("/register", (req, res) => {
 
 	bcrypt.hash(password, saltrounds, function(err, hash) {
 		//store hash in password DB
-		db.none("INSERT INTO users1(name, email, password) VALUES($1, $2, $3)", [
+		db.none("INSERT INTO users(name, email, password) VALUES($1, $2, $3)", [
 			username,
 			email,
 			hash
 		])
 			.then(() => {
 				//res.send("succ");
-				var query = "SELECT currval(pg_get_serial_sequence('users1','id'));";
+				var query =
+					"SELECT currval(pg_get_serial_sequence('users','id')) as user_id;";
 				db.any(query)
 					.then(function(rows) {
 						//res.send(rows[0]);
-						console.log(rows[0].currval);
+						//console.log(rows[0].currval);
+						//console.log(rows[0]);
+						const user_id = rows[0];
+						//const user_id = rows[0].currval;
 						//console.log(rows);
-						//req.login(rows[0].currval);
-						res.render("fakebook.ejs");
+						req.login(user_id, function(err) {
+							res.redirect("/");
+						});
+						//res.render("fakebook.ejs");
 					})
 					.catch(function(err) {
 						// display error message in case an error
-						req.flash("error", err);
+						res.send("failure");
 					});
 			})
 			.catch(error => {
@@ -65,9 +76,7 @@ passport.serializeUser(function(user_id, done) {
 });
 
 passport.deserializeUser(function(user_id, done) {
-	User.findById(id, function(err, user_id) {
-		done(null, user_id);
-	});
+	done(null, user_id);
 });
 
 module.exports = router;
