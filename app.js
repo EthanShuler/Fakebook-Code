@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const uuid = require("uuid/v4");
-var pgSession = require("connect-pg-simple")(session);
+//var pgSession = require("connect-pg-simple")(session);
 
 const THREE_HOURS = 1000 * 60 * 60 * 3;
 
@@ -28,13 +28,27 @@ app.use(cookieParser());
 //set static path for css, img, js files
 app.use(express.static(__dirname + "/public"));
 
+const pg = require("pg");
+const pgSession = require("connect-pg-simple")(session);
+
+var pgPool = new pg.Pool({
+	host: "localhost",
+	port: 5432,
+	database: "testusers",
+	user: "postgres",
+	password: "postgres"
+});
+
 app.use(
 	session({
+		store: new pgSession({
+			pool: pgPool
+		}),
 		//store: new (require("connect-pg-simple")(session))(),
 		//store: new pgSession(pgStoreConfig),
-		store: new pgSession({
-			conString: process.env.DATABASE_URL
-		}),
+		// store: new pgSession({
+		// 	conString: process.env.DATABASE_URL
+		// }),
 		genid: req => {
 			//console.log("Inside the session middleware");
 			//console.log(req.sessionID);

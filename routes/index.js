@@ -32,9 +32,9 @@ router.post("/register", (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
-	const dbConfig = process.env.DATABASE_URL;
-	const db = pgp(dbConfig);
-	//const db = require("../db");
+	//const dbConfig = process.env.DATABASE_URL;
+	//const db = pgp(dbConfig);
+	const db = require("../db");
 
 	bcrypt.hash(password, saltrounds, function(err, hash) {
 		//store hash in password DB
@@ -72,6 +72,7 @@ router.post("/register", (req, res) => {
 });
 
 passport.serializeUser(function(user_id, done) {
+	console.log("ok");
 	done(null, user_id);
 });
 
@@ -81,9 +82,11 @@ passport.deserializeUser(function(user_id, done) {
 
 function authenticationMiddleware() {
 	return (req, res, next) => {
+		//console.log("logged in");
 		console.log(`
 		req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
 		if (req.isAuthenticated()) return next();
+		//console.log("not nogged in");
 		res.redirect("login");
 	};
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>FakeBook || Login or Register</title>
+		<title>FakeBook || login/register</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link
 			rel="stylesheet"
@@ -10,22 +10,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="/js/login.js"></script>
 		<meta charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="/css/login.css" />
+		<script type="text/javascript" src="/js/login.js"></script>
 	</head>
 	<body style="background-color:#87CEFA">
-		<nav
-			class="navbar navbar-expand-sm bg-primary navbar-dark font-weight-bold"
-		>
-			<div class="center">
-				<a class="navbar-brand" href="#"
-					><img src="/img/logo.png" style="width:40px;"
-				/></a>
-				<header>FAKEBOOK.COM</header>
-			</div>
-		</nav>
-
 		<div class="container">
 			<form method="post" action="???" ID="LoginForm" name="formlogin">
 				<div class="form-group">
@@ -48,16 +37,17 @@
 				</div>
 				<button type="submit" class="btn btn-default">Log In</button>
 			</form>
-			<br />
 			<p>Or, if you don't have an account yet:</p>
 
-			<a
-				href="#register"
-				class="btn btn-info"
-				data-toggle="modal"
-				onclick="openModal()"
-				>Register an Account</a
-			>
+			<div class="text-center">
+				<a
+					href="#register"
+					class="btn btn-info"
+					data-toggle="modal"
+					onclick="openModal()"
+					>Register an Account</a
+				>
+			</div>
 
 			<!-- Modal HTML -->
 			<div id="register" class="modal fade">
