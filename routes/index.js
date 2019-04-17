@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const router = express.Router();
+var pgp = require("pg-promise")();
 
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
@@ -26,9 +27,9 @@ router.post("/register", (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
-	//const dbCOnfig = process.env.DATABASE_URL; //require("../db");
-	//const db = pgp(dbCOnfig);
-	const db = require("../db");
+	const dbConfig = process.env.DATABASE_URL; //require("../db");
+	const db = pgp(dbConfig);
+	//const db = require("../db");
 
 	bcrypt.hash(password, saltrounds, function(err, hash) {
 		//store hash in password DB
