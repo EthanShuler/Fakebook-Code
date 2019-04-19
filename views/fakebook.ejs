@@ -49,7 +49,7 @@
 		</form>
 		<p>POSTS:</p>
 		<% if(data){ %>
-		<% data.forEach(function(item) { %>
+		<% data.slice().reverse().forEach(function(item) { %>
 
 		<div class="card">
 			<div class="card-body">
