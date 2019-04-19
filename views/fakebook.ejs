@@ -1,133 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Fakebook</title>
-		<link rel="icon" href="media/logo.png" type="image/x-icon" />
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		/>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<link href="/css/style.css" rel="stylesheet" />
-	</head>
-	<body>
-		<nav
-			class="navbar navbar-expand-sm bg-primary navbar-dark font-weight-bold"
-		>
-			<ul class="navbar=nav">
-				<form class="form-inline" action="#">
-					<a class="navbar-brand" href="#"
-						><img src="/img/logo.png" style="width:40px;"
-					/></a>
-					<input
-						class="form-control mr-sm-2"
-						type="text"
-						placeholder="Search"
-					/>
-					<button class="btn btn-secondary" type="submit">Search</button>
-				</form>
-			</ul>
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="/profile">My Profile</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Notifications</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Create Post</a>
-				</li>
-			</ul>
-		</nav>
 
-		<div class="container">
-			<h1 class="text-center" style="margin-top: 30px">Fakebook</h1>
+<head>
+	<title>Fakebook</title>
+	<link rel="icon" href="media/logo.png" type="image/x-icon" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link href="/css/style.css" rel="stylesheet" />
+</head>
 
-			<form method="post" action="/submitPost">
-				<textarea name="message" rows="20" cols="30">Submit your post</textarea>
-				<br />
-				<input type="submit" />
+<body>
+	<nav class="navbar navbar-expand-sm bg-primary navbar-dark font-weight-bold">
+		<ul class="navbar=nav">
+			<form class="form-inline" action="#">
+				<a class="navbar-brand" href="#"><img src="/img/logo.png" style="width:40px;" /></a>
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" />
+				<button class="btn btn-secondary" type="submit">Search</button>
 			</form>
-			<p>POSTS:</p>
-			<% if(data){ %>
-				<% data.forEach(function(item) { %>
-					<p> <%= item.text %> </p>
-				<% }); %>
-			<% } %>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="/profile">My Profile</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Notifications</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Create Post</a>
+			</li>
+		</ul>
+	</nav>
 
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title">Moon landing was faked</h4>
-					<p class="card-text">Some example text. Some example text.</p>
-					<a href="#" class="card-link">Link to news soruce</a>
-					<img
-						class="card-img-bottom"
-						src="/img/moon.jpeg"
-						alt="Moon Landing"
-						style="width:100%"
-					/>
-					<section class="row" style="margin-top: 20px">
-						<div class="mx-auto">
-							<button type="button" class="btn btn-light btn-lg">Like</button>
-							<button type="button" class="btn btn-light btn-lg">
-								Comment
-							</button>
-							<button type="button" class="btn btn-light btn-lg">Share</button>
-						</div>
-					</section>
-					<section class="row" style="margin-top: 20px">
-						<img
-							src="/img/user.jpg"
-							class="rounded-circle mx-auto"
-							style="width:45px; height:40px;"
-						/>
-						<form class="form-inline mx-auto" action="#">
-							<input class="form-control" type="text" placeholder="Comment" />
-							<button class="btn btn-secondary" type="submit">
-								Submit Comment
-							</button>
-						</form>
-					</section>
-				</div>
-			</div>
+	<div class="container">
+		<h1 class="text-center" style="margin-top: 30px">Fakebook</h1>
 
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title">Moon landing was faked</h4>
-					<p class="card-text">Some example text. Some example text.</p>
-					<a href="#" class="card-link">Link to news soruce</a>
-					<img
-						class="card-img-bottom"
-						src="/img/moon.jpeg"
-						alt="Moon Landing"
-						style="width:100%"
-					/>
-					<section class="row" style="margin-top: 20px">
-						<div class="mx-auto">
-							<button type="button" class="btn btn-light btn-lg">Like</button>
-							<button type="button" class="btn btn-light btn-lg">
-								Comment
-							</button>
-							<button type="button" class="btn btn-light btn-lg">Share</button>
-						</div>
-					</section>
-					<section class="row" style="margin-top: 20px">
-						<form class="form-inline mx-auto" action="#">
-							<input class="form-control" type="text" placeholder="Comment" />
-							<button class="btn btn-secondary" type="submit">
-								Submit Comment
-							</button>
-						</form>
-					</section>
-				</div>
+		<form method="post" action="/submitPost">
+			<textarea required name="message" placeholder="submit post" rows="20" cols="30"></textarea>
+			<input type="text" placeholder="add image URL" name="imageURL">
+			<br />
+			<input type="submit" />
+		</form>
+		<p>POSTS:</p>
+		<% if(data){ %>
+		<% data.forEach(function(item) { %>
+
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title"><%= item.poster %> </h4>
+				<p class="card-text"> <%= item.text %> </p>
+				<img class="card-img-bottom" src="<%=item.image%>" style="width:100%">
 			</div>
 		</div>
-	</body>
+
+
+
+		<% }); %>
+		<% } %>
+
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Moon landing was faked</h4>
+				<p class="card-text">Some example text. Some example text.</p>
+				<a href="#" class="card-link">Link to news soruce</a>
+				<img class="card-img-bottom" src="/img/moon.jpeg" alt="Moon Landing" style="width:100%" />
+				<section class="row" style="margin-top: 20px">
+					<div class="mx-auto">
+						<button type="button" class="btn btn-light btn-lg">Like</button>
+						<button type="button" class="btn btn-light btn-lg">
+							Comment
+						</button>
+						<button type="button" class="btn btn-light btn-lg">Share</button>
+					</div>
+				</section>
+				<section class="row" style="margin-top: 20px">
+					<img src="/img/user.jpg" class="rounded-circle mx-auto" style="width:45px; height:40px;" />
+					<form class="form-inline mx-auto" action="#">
+						<input class="form-control" type="text" placeholder="Comment" />
+						<button class="btn btn-secondary" type="submit">
+							Submit Comment
+						</button>
+					</form>
+				</section>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Moon landing was faked</h4>
+				<p class="card-text">Some example text. Some example text.</p>
+				<a href="#" class="card-link">Link to news soruce</a>
+				<img class="card-img-bottom" src="/img/moon.jpeg" alt="Moon Landing" style="width:100%" />
+				<section class="row" style="margin-top: 20px">
+					<div class="mx-auto">
+						<button type="button" class="btn btn-light btn-lg">Like</button>
+						<button type="button" class="btn btn-light btn-lg">
+							Comment
+						</button>
+						<button type="button" class="btn btn-light btn-lg">Share</button>
+					</div>
+				</section>
+				<section class="row" style="margin-top: 20px">
+					<form class="form-inline mx-auto" action="#">
+						<input class="form-control" type="text" placeholder="Comment" />
+						<button class="btn btn-secondary" type="submit">
+							Submit Comment
+						</button>
+					</form>
+				</section>
+			</div>
+		</div>
+	</div>
+</body>
+
 </html>

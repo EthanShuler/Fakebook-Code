@@ -6,9 +6,10 @@ var pgp = require("pg-promise")();
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
+//const db = require("../db");
+
 const dbConfig = process.env.DATABASE_URL;
 const db = pgp(dbConfig);
-//const db = require("../db");
 
 // router.post("/post", (req, res) => {
 // 	var postQuery = ("SELECT * from posts;");
@@ -27,7 +28,7 @@ router.get("/login", (req, res, next) => res.render("login"));
 router.get("/", authenticationMiddleware(), function(req, res) {
 	//console.log(req.user);
 	//console.log(req.isAuthenticated());
-	db.any("SELECT poster, text FROM posts")
+	db.any("SELECT poster, text, image FROM posts")
 		.then(function(rows) {
 			res.render("fakebook", {
 				data: rows
@@ -42,7 +43,12 @@ router.get("/", authenticationMiddleware(), function(req, res) {
 
 router.post("/submitPost", (req, res, next) => {
 	const message = req.body.message;
-	db.none("INSERT INTO posts(poster, text) VALUES($1, $2)", ["temp", message])
+	const image = req.body.imageURL;
+	db.none("INSERT INTO posts(poster, text, image) VALUES($1, $2, $3)", [
+		"temp",
+		message,
+		image
+	])
 		.then(() => {
 			res.redirect("/");
 		})
@@ -108,8 +114,8 @@ passport.deserializeUser(function(user_id, done) {
 function authenticationMiddleware() {
 	return (req, res, next) => {
 		//console.log("logged in");
-		console.log(`
-		req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+		//console.log(`
+		//req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
 		if (req.isAuthenticated()) return next();
 		//console.log("not nogged in");
 		else {

@@ -91,7 +91,9 @@ passport.use(
 
 			const dbConfig = process.env.DATABASE_URL;
 			const db = pgp(dbConfig);
+
 			//const db = require("./db");
+
 			db.any("SELECT id, password from users where name = $1", [username])
 				.then(function(data) {
 					if (data.length == 0) {
