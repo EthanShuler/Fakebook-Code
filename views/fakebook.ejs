@@ -41,12 +41,24 @@
 	<div class="container">
 		<h1 class="text-center" style="margin-top: 30px">Fakebook</h1>
 
-		<form method="post" action="/submitPost">
-			<textarea required name="message" placeholder="submit post" rows="20" cols="30"></textarea>
-			<input type="text" placeholder="add image URL" name="imageURL">
-			<br />
-			<input type="submit" />
-		</form>
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">Create a post!</h4>
+				<div class="card-text">
+					<form method="post" action="/submitPost">
+						<div class="form-group">
+							<textarea required name="message" placeholder="submit post" rows="10" cols="110"></textarea>
+						</div>
+						<div class="form-group">
+							<input type="text" placeholder="add image URL" name="imageURL">
+						</div>
+						<input type="submit" />
+					</form>
+				</div>
+			</div>
+		</div>
+
+
 		<p>POSTS:</p>
 		<% if(data){ %>
 		<% data.slice().reverse().forEach(function(item) { %>
