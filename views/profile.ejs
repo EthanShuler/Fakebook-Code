@@ -1,160 +1,126 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Fakebook Profile</title>
-		<link rel="icon" href="media/logo.png" type="image/x-icon" />
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		/>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<link href="/css/style.css" rel="stylesheet" />
-	</head>
 
-	<body>
-		<nav
-			class="navbar navbar-expand-sm bg-primary navbar-dark font-weight-bold"
-		>
-			<ul class="navbar=nav">
-				<form class="form-inline" action="#">
-					<a class="navbar-brand" href="/fakebook"
-						><img src="/public/img/logo.png" style="width:40px;"
-					/></a>
-					<input
-						class="form-control mr-sm-2"
-						type="text"
-						placeholder="Search"
-					/>
-					<button class="btn btn-secondary" type="submit">Search</button>
-				</form>
-			</ul>
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="/profile">My Profile</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Notifications</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Create Post</a>
-				</li>
-			</ul>
-		</nav>
+<head>
+	<title>Fakebook Profile</title>
+	<link rel="icon" href="media/logo.png" type="image/x-icon" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link href="/css/style.css" rel="stylesheet" />
+</head>
 
-		<div class="container">
-			<h1 class="text-center" style="margin-top: 30px">User Profile</h1>
+<body style="background-color: #800000">
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark font-weight-bold">
+		<ul class="navbar=nav">
+			<form class="form-inline" action="#">
+				<a class="navbar-brand" href="/fakebook"><img src="/public/img/logo.png" style="width:40px;" /></a>
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" />
+				<button class="btn btn-secondary" type="submit">Search</button>
+			</form>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="#">My Profile</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/">Home</a>
+			</li>
+		</ul>
+	</nav>
 
-			<div class="row" name="user_info" style="margin-top: 30px;">
-				<div class="col-lg-4">
-					<div class="card" style="margin-top: 0px;">
-						<div class="card-body" style="padding: 0px;">
-							<img
-								class="card-img-top"
-								src="./media/batman.jpg"
-								alt="ProfilePic"
-							/>
-						</div>
-						<div class="card-footer">
-							<button
-								type="button"
-								class="btn btn-outline-primary btn-lg btn-block"
-							>
-								+Add Friend
-							</button>
-						</div>
+	<div class="container">
+		<h1 class="text-center" style="margin-top: 30px">User Profile</h1>
+
+		<div class="row" name="user_info" style="margin-top: 30px;">
+			<div class="col-lg-4">
+				<div class="card" style="margin-top: 0px;">
+					<div class="card-body" style="padding: 0px;">
+						<img class="card-img-top" src="/img/batman.jpg" alt="ProfilePic" />
+					</div>
+					<div class="card-footer">
+						<button type="button" class="btn btn-outline-primary btn-lg btn-block">
+							+Add Friend
+						</button>
 					</div>
 				</div>
-
-				<div class="col-lg-8">
-					<table class="table">
-						<tr>
-							<th>Name</th>
-							<td>Batman</td>
-						</tr>
-						<tr>
-							<th>Birthday</th>
-							<td>July 23</td>
-						</tr>
-						<tr>
-							<th>Email</th>
-							<td>imbatman@gmail.com</td>
-						</tr>
-						<tr>
-							<th>Gender</th>
-							<td>Male</td>
-						</tr>
-						<tr>
-							<th>Hometown</th>
-							<td>Gotham City</td>
-						</tr>
-					</table>
-
-					<article style="padding: .75rem;">
-						<h5>Biography</h5>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam, quis nostrud exercitation ullamco laboris
-							nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-							reprehenderit in voluptate velit esse cillum dolore eu fugiat
-							nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-							sunt in culpa qui officia deserunt mollit anim id est laborum
-						</p>
-					</article>
-				</div>
 			</div>
 
-			<h2 style="padding-top: 20px;">Pinned Articles</h2>
-			<div class="row" name="pinned_articles">
-				<div class="card col-lg-3" style="margin-right: 10px;">
-					<a href="#">
-						<div class="card-body">
-							<h4 class="card-title">Moon landing was faked</h4>
-							<img
-								class="card-img-bottom"
-								src="media/moon.jpeg"
-								alt="Moon Landing"
-								style="width:100%"
-							/></div
-					></a>
-				</div>
-			</div>
+			<div class="col-lg-8">
+				<table class="table">
+					<tr>
+						<th>Name</th>
+						<td>Batman</td>
+					</tr>
+					<tr>
+						<th>Birthday</th>
+						<td>July 23</td>
+					</tr>
+					<tr>
+						<th>Email</th>
+						<td>imbatman@gmail.com</td>
+					</tr>
+					<tr>
+						<th>Gender</th>
+						<td>Male</td>
+					</tr>
+					<tr>
+						<th>Hometown</th>
+						<td>Gotham City</td>
+					</tr>
+				</table>
 
-			<h2 style="padding-top: 20px;">Friends</h2>
-			<div class="row" name="friend_list">
-				<div class="card col-lg-3" style="margin-right: 10px;">
-					<a href="#">
-						<div class="card-body">
-							<h4 class="card-title">Robin</h4>
-							<img
-								class="card-img-bottom"
-								src="media/user.jpg"
-								alt="Moon Landing"
-								style="width:100%"
-							/></div
-					></a>
-				</div>
-
-				<div class="card col-lg-3" style="margin-right: 10px;">
-					<a href="#">
-						<div class="card-body">
-							<h4 class="card-title">Superman</h4>
-							<img
-								class="card-img-bottom"
-								src="media/user.jpg"
-								alt="Moon Landing"
-								style="width:100%"
-							/></div
-					></a>
-				</div>
+				<article style="padding: .75rem;">
+					<h5>Biography</h5>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+						eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+						enim ad minim veniam, quis nostrud exercitation ullamco laboris
+						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+						reprehenderit in voluptate velit esse cillum dolore eu fugiat
+						nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+						sunt in culpa qui officia deserunt mollit anim id est laborum
+					</p>
+				</article>
 			</div>
 		</div>
-	</body>
+
+		<h2 style="padding-top: 20px;">Pinned Articles</h2>
+		<div class="row" name="pinned_articles">
+			<div class="card col-lg-3" style="margin-right: 10px;">
+				<a href="#">
+					<div class="card-body">
+						<h4 class="card-title">Moon landing was faked</h4>
+						<img class="card-img-bottom" src="media/moon.jpeg" alt="Moon Landing" style="width:100%" />
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<h2 style="padding-top: 20px;">Friends</h2>
+		<div class="row" name="friend_list">
+			<div class="card col-lg-3" style="margin-right: 10px;">
+				<a href="#">
+					<div class="card-body">
+						<h4 class="card-title">Robin</h4>
+						<img class="card-img-bottom" src="/img/user.jpg" alt="Moon Landing" style="width:100%" />
+					</div>
+				</a>
+			</div>
+
+			<div class="card col-lg-3" style="margin-right: 10px;">
+				<a href="#">
+					<div class="card-body">
+						<h4 class="card-title">Superman</h4>
+						<img class="card-img-bottom" src="/img/user.jpg" alt="Moon Landing" style="width:100%" />
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+
 </html>

@@ -25,10 +25,12 @@ const db = pgp(dbConfig);
 //Login Page
 router.get("/login", (req, res, next) => res.render("login"));
 
+router.get("/profile", (req, res, next) => res.render("profile"));
+
 router.get("/", authenticationMiddleware(), function(req, res) {
 	//console.log(req.user);
 	//console.log(req.isAuthenticated());
-	db.any("SELECT poster, text, image FROM posts")
+	db.any("SELECT poster, text, image, title FROM posts")
 		.then(function(rows) {
 			res.render("fakebook", {
 				data: rows
@@ -44,11 +46,11 @@ router.get("/", authenticationMiddleware(), function(req, res) {
 router.post("/submitPost", (req, res, next) => {
 	const message = req.body.message;
 	const image = req.body.imageURL;
-	db.none("INSERT INTO posts(poster, text, image) VALUES($1, $2, $3)", [
-		"temp",
-		message,
-		image
-	])
+	const title = req.body.title;
+	db.none(
+		"INSERT INTO posts(poster, text, image, title) VALUES($1, $2, $3, $4)",
+		["temp", message, image, title]
+	)
 		.then(() => {
 			res.redirect("/");
 		})
