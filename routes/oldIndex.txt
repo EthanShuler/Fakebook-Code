@@ -6,10 +6,10 @@ var pgp = require("pg-promise")();
 const bcrypt = require("bcrypt");
 const saltrounds = 10;
 
-//const db = require("../db");
+const db = require("../db");
 
-const dbConfig = process.env.DATABASE_URL;
-const db = pgp(dbConfig);
+// const dbConfig = process.env.DATABASE_URL;
+// const db = pgp(dbConfig);
 
 //Login Page
 router.get("/login", (req, res, next) => res.render("login"));
@@ -62,23 +62,25 @@ router.post("/submitPost", (req, res, next) => {
 	const thePoster = db
 		.any("SELECT name FROM users WHERE id = ($1)", [req.user.user_id])
 		.then(function(rows) {
-			const thePoster = rows[0].name;
-
-			db.none(
-				"INSERT INTO posts(poster, text, image, title) VALUES($1, $2, $3, $4)",
-				[thePoster, message, image, title]
-			)
-				.then(() => {
-					res.redirect("/");
-				})
-				.catch(function(err) {
-					res.redirect("/");
-				});
+			console.log(rows[0].name);
+			return rows[0].name;
 		})
 
 		.catch(function(err) {
 			console.log(err);
 			console.log("in error");
+			res.redirect("/");
+		});
+	console.log(thePoster);
+
+	db.none(
+		"INSERT INTO posts(poster, text, image, title) VALUES($1, $2, $3, $4)",
+		[thePoster, message, image, title]
+	)
+		.then(() => {
+			res.redirect("/");
+		})
+		.catch(function(err) {
 			res.redirect("/");
 		});
 });

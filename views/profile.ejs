@@ -17,14 +17,14 @@
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark font-weight-bold">
 		<ul class="navbar=nav">
 			<form class="form-inline" action="#">
-				<a class="navbar-brand" href="/fakebook"><img src="/public/img/logo.png" style="width:40px;" /></a>
+				<a class="navbar-brand" href="/fakebook"><img src="img/logo.png" style="width:40px;" /></a>
 				<input class="form-control mr-sm-2" type="text" placeholder="Search" />
 				<button class="btn btn-secondary" type="submit">Search</button>
 			</form>
 		</ul>
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="#">My Profile</a>
+				<a class="nav-link" href="/logout">Logout</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="/">Home</a>
@@ -41,14 +41,10 @@
 					<div class="card-body" style="padding: 0px;">
 						<img class="card-img-top" src="/img/batman.jpg" alt="ProfilePic" />
 					</div>
-					<div class="card-footer">
-						<button type="button" class="btn btn-outline-primary btn-lg btn-block">
-							+Add Friend
-						</button>
-					</div>
 				</div>
 			</div>
-
+			<p>USER DATA:</p>
+			<p><%=data.name %></p>
 			<div class="col-lg-8">
 				<table class="table">
 					<tr>
@@ -62,10 +58,6 @@
 					<tr>
 						<th>Email</th>
 						<td>imbatman@gmail.com</td>
-					</tr>
-					<tr>
-						<th>Gender</th>
-						<td>Male</td>
 					</tr>
 					<tr>
 						<th>Hometown</th>
@@ -88,38 +80,6 @@
 			</div>
 		</div>
 
-		<h2 style="padding-top: 20px;">Pinned Articles</h2>
-		<div class="row" name="pinned_articles">
-			<div class="card col-lg-3" style="margin-right: 10px;">
-				<a href="#">
-					<div class="card-body">
-						<h4 class="card-title">Moon landing was faked</h4>
-						<img class="card-img-bottom" src="media/moon.jpeg" alt="Moon Landing" style="width:100%" />
-					</div>
-				</a>
-			</div>
-		</div>
-
-		<h2 style="padding-top: 20px;">Friends</h2>
-		<div class="row" name="friend_list">
-			<div class="card col-lg-3" style="margin-right: 10px;">
-				<a href="#">
-					<div class="card-body">
-						<h4 class="card-title">Robin</h4>
-						<img class="card-img-bottom" src="/img/user.jpg" alt="Moon Landing" style="width:100%" />
-					</div>
-				</a>
-			</div>
-
-			<div class="card col-lg-3" style="margin-right: 10px;">
-				<a href="#">
-					<div class="card-body">
-						<h4 class="card-title">Superman</h4>
-						<img class="card-img-bottom" src="/img/user.jpg" alt="Moon Landing" style="width:100%" />
-					</div>
-				</a>
-			</div>
-		</div>
 	</div>
 </body>
 
