@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/register.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <form action="/register" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Username" required="required" />
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="email" required="required" />
+            </div>
+
+            <div class="form-group">
+                <input id="psw" type="password" class="form-control" name="password" placeholder="Password"
+                    required="required" oninput="passCheck();" />
+            </div>
+            <div class="form-group">
+                <input id="cpsw" type="password" class="form-control" name="confirm password"
+                    placeholder="Confirm Password" required="required" oninput="confirmCheck();" />
+            </div>
+
+            <label for="image">Insert an image URL for your profile picture</label>
+            <div class="form-group">
+                <input type="text" id="image" name="image" class="form-control" required="required" />
+            </div>
+            <label for="hometown">What is your hometown? </label>
+            <div class="form-group">
+                <input type="text" id="hometown" name="hometown" class="form-control" required="required" />
+            </div>
+            <label for="bio">Add a bio to describe yourself</label>
+            <div class="form-group">
+                <textarea name="bio" id="bio" cols="30" rows="10" required="required"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" id="submitButton" class="btn btn-primary btn-block login-btn" disabled onClick="">
+                    Register
+                </button>
+            </div>
+        </form>
+
+        <div style="padding:50px">
+            <h3>Password must contain the following:</h3>
+            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+            <p id="capital" class="invalid">
+                A <b>capital (uppercase)</b> letter
+            </p>
+            <p id="number" class="invalid">A <b>number</b></p>
+            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+            <p id="match" class="invalid">
+                Password and Confirm Password Match
+            </p>
+        </div>
+    </div>
+
+
+    <script>
+        var myInput = document.getElementById("psw");
+        var confirmMyInput = document.getElementById("cpsw");
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+        var match = document.getElementById("match");
+
+        // When the user starts to type something inside the password field
+        function passCheck() {
+            /* TODO: Question 1.1: Starts here */
+            var lowerCaseLetters = /[a-z]/g; // : Fill in the regular experssion for lowerCaseLetters
+            var upperCaseLetters = /[A-Z]/g; // : Fill in the regular experssion for upperCaseLetters
+            var numbers = /\d/g; // : Fill in the regular experssion for digits
+            var minLength = 8; // : Change the minimum length to what what it needs to be in the question
+
+            // Validate lowercase letters
+
+            console.log(letter.classList);
+
+            if (myInput.value.match(lowerCaseLetters)) {
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+
+            // Validate capital letters
+            if (myInput.value.match(upperCaseLetters)) {
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
+
+            // Validate numbers
+            if (myInput.value.match(numbers)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+
+            // Validate length
+            if (myInput.value.length >= minLength) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+        }
+        function confirmCheck() {
+            // Validate password and confirmPassword
+            var passEqualsConfPass = myInput.value == confirmMyInput.value; // TODO: Change this to the condition that needs to be checked so that the text entered in password equals the text in confirm password
+
+            if (passEqualsConfPass) {
+                match.classList.remove("invalid");
+                match.classList.add("valid");
+            } else {
+                match.classList.remove("valid");
+                match.classList.add("invalid");
+            }
+            enableButton(letter, capital, number, length, match);
+        }
+
+        function enableButton(letter, capital, number, length, match) {
+            var button = document.getElementById("submitButton");
+            var condition =
+                letter.classList == "valid" &&
+                capital.classList == "valid" &&
+                number.classList == "valid" &&
+                length.classList == "valid" &&
+                match.classList == "valid";
+            if (condition) {
+                button.disabled = false;
+            } else {
+                button.disabled = true;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

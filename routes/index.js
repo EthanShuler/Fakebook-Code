@@ -14,10 +14,12 @@ const db = pgp(dbConfig);
 //Login Page
 router.get("/login", (req, res, next) => res.render("login"));
 
+router.get("/register", (req, res, next) => res.render("register"));
+
 router.get("/profile", (req, res, next) => {
 	//console.log(req.user);
 	//console.log(req.user.user_id);
-	db.any("SELECT name, email FROM users WHERE id = ($1)", [req.user.user_id])
+	db.any("SELECT * FROM users WHERE id = ($1)", [req.user.user_id])
 		.then(function(rows) {
 			res.render("profile", {
 				data: rows[0]
@@ -97,14 +99,16 @@ router.post("/register", (req, res, next) => {
 	const username = req.body.username;
 	const email = req.body.email;
 	const password = req.body.password;
+	const image = req.body.image;
+	const bio = req.body.bio;
+	const hometown = req.body.hometown;
 
 	bcrypt.hash(password, saltrounds, function(err, hash) {
 		//store hash in password DB
-		db.none("INSERT INTO users(name, email, password) VALUES($1, $2, $3)", [
-			username,
-			email,
-			hash
-		])
+		db.none(
+			"INSERT INTO users(name, email, password, image, bio, hometown) VALUES($1, $2, $3, $4, $5, $6)",
+			[username, email, hash, image, bio, hometown]
+		)
 			.then(() => {
 				//res.send("succ");
 				var query =
