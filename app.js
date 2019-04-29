@@ -42,10 +42,10 @@ var pgPool = new pg.Pool({
 });
 
 app.use(
-	// session({
-	// 	store: new pgSession({
-	// 		pool: pgPool
-	// 	}),
+	session({
+		// 	store: new pgSession({
+		// 		pool: pgPool
+		// 	}),
 
 		store: new pgSession({
 			conString: process.env.DATABASE_URL
