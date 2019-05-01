@@ -43,13 +43,13 @@ var pgPool = new pg.Pool({
 
 app.use(
 	session({
-		// 	store: new pgSession({
-		// 		pool: pgPool
-		// 	}),
-
 		store: new pgSession({
-			conString: process.env.DATABASE_URL
+			pool: pgPool
 		}),
+
+		// store: new pgSession({
+		// 	conString: process.env.DATABASE_URL
+		// }),
 		genid: req => {
 			//console.log("Inside the session middleware");
 			//console.log(req.sessionID);
@@ -89,10 +89,10 @@ passport.use(
 			//console.log(username);
 			//console.log(password);
 
-			const dbConfig = process.env.DATABASE_URL;
-			const db = pgp(dbConfig);
+			// const dbConfig = process.env.DATABASE_URL;
+			// const db = pgp(dbConfig);
 
-			//const db = require("./db");
+			const db = require("./db");
 
 			db.any("SELECT id, password from users where name = $1", [username])
 				.then(function(data) {
@@ -119,5 +119,9 @@ passport.use(
 		}
 	)
 );
+
+app.use(function(req, res, next) {
+	res.status(404).render("404");
+});
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
