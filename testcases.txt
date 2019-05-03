@@ -1,0 +1,7 @@
+When each new feature was implemeneted, one of us would perform manual testing to make sure that the app worked.
+
+Tests inclde creating an account, logging in, viewing the profile, posting, and viewing other posts. 
+
+Because much of the development was done on local machines, these tests were implemented on the local versions of the application. Due to this, the local database for users and posts on Ethan's laptop has many more rows than the actual production environment of the application. 
+
+After each change to the application, Ethan would ensure that it was possible to log on, view the profile, post, and see the post on any account. 
